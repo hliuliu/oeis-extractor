@@ -4,14 +4,17 @@ import json, sys, random
 
 from html.parser import HTMLParser
 
+import oeis
 
-oeis_data = {}
+from oeis import load_data, save_data
+
+
 
 
 def new_random_number():
-	num = random.randrange(1, 400000-1)
-	while num in oeis_data:
-		num = random.randrange(1, 400000-1)
+	num = random.randrange(1, 200000-1)
+	while num in oeis.oeis_data:
+		num = random.randrange(1, 200000-1)
 	return num
 
 
@@ -78,20 +81,16 @@ class OEISParser(HTMLParser):
 	
 
 def main():
-	global oeis_data
-	json_filename = 'oeis_data.json'
-	with open(json_filename, 'r') as f:
-		oeis_data=json.load(f)
-	for num in list(oeis_data.keys()):
-		if type(num) is str:
-			oeis_data[int(num)] = oeis_data[num]
-			del oeis_data[num]
+
+	oeis_data = oeis.oeis_data
+	load_data()
+	
 	nums = map(int, sys.argv[1:])
 	if len(sys.argv)<2:
 		L = random.randrange(100, 1000)
 		nums = (new_random_number() for _ in range(L))
 	for num in nums:
-		if num not in oeis_data:
+		if num not in oeis.oeis_data:
 			try:
 				info = get_oeis_info(num)
 			except Exception as e:
@@ -99,9 +98,8 @@ def main():
 				continue
 			if not info:
 				continue
-			oeis_data[num] = info
-	with open(json_filename, 'w') as f:
-		json.dump(oeis_data, f)
+			oeis.oeis_data[num] = info
+	save_data()
 	
 
 
@@ -110,5 +108,6 @@ def main():
 if __name__=='__main__':
 	main()
 	# print(oeis_data)
+	oeis_data = oeis.oeis_data
 	print(list(oeis_data.keys())[-10:])
 	print(f'{len(oeis_data)} entries saved.')
