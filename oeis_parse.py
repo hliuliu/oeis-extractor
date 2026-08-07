@@ -45,7 +45,7 @@ def get_oeis_info(number):
 
 
 def toint(s):
-	s = ''.join((c for c in s if '0'<=c<='9'))
+	s = ''.join((c for c in s if '0'<=c<='9' or c=='-'))
 	return int(s)
 
 
