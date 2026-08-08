@@ -22,6 +22,22 @@ def save_data():
 		json.dump(oeis_data, f)
 
 
+def existing_entry_numbers():
+	for num in oeis_data:
+		yield num
+
+def is_existing_entry_number(num):
+	return num in oeis_data
+
+def num_available_sequences():
+	return len(oeis_data)
+
+def random_available_sequence():
+	index = random.randrange(0, num_available_sequences()-1)
+	for i,n in enumerate(existing_entry_numbers()):
+		if i==index:
+			return OEISSequence(n)
+
 
 def fetch_json_data(number):
 	entry = f'A{number:06}'
@@ -59,15 +75,6 @@ class OEISSequence(object):
 		_OEISSequence_instances[number] = instance
 		return instance
 
-	# def __init__(self, number):
-	# 	print('init called')
-	# 	entry = oeis_data[number]
-	# 	self._number = number
-	# 	self._entry_label = entry['entry']
-	# 	self._sequence = entry['sequence']
-	# 	self._url = entry['link']
-	# 	self._description = None
-	# 	self._json_data = None
 
 	@property
 	def number(self):
@@ -115,6 +122,25 @@ class OEISSequence(object):
 		entry['sequence'] = self._sequence
 		if self._description is not None:
 			entry['description'] = self._description
+
+	def __len__(self):
+		return len(self._sequence)
+
+	def __str__(self):
+		NL = '\n'
+		return f'''
+OEIS entry #{self.number}:
+First {len(self)} terms: {self._sequence} { f'{NL}{self._description}' if self._description else ''}
+		'''
+
+	def __repr__(self):
+		return f'{type(self).__name__}({self.number})'
+
+
+	def __call__(self, n:int):
+		if n<0 or n>=len(self):
+			raise ValueError(f'argument must be in the range [{0},{len(self)}).')
+		return self._sequence[n]
 
 
 
