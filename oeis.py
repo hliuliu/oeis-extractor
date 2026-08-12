@@ -101,7 +101,7 @@ class OEISSequence(object):
 	@property
 	def description(self):
 		if self._description is None:
-			self._description = self._get_json_data()['name']
+			self._description = self._get_json_data().get('name', None)
 		return self._description
 
 
