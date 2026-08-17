@@ -123,6 +123,20 @@ class OEISSequence(object):
 		if self._description is not None:
 			entry['description'] = self._description
 
+	def sliding_window(self, size, full=True):
+		seq = []
+		for el in self:
+			seq.append(el)
+			if full or len(seq)==size:
+				yield seq
+			if len(seq)==size:
+				del seq[0]
+
+		if full:
+			while seq:
+				yield seq
+				del seq[0]
+
 	def __len__(self):
 		return len(self._sequence)
 
