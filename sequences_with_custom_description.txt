@@ -1,0 +1,17 @@
+OEIS #8: Number of ways to produce $n$ cents using 1,2,5,10 cent coins
+OEIS #9: number of integer partitions of $n$ into distinct parts; or into odd parts
+OEIS #12: all 1's sequence
+OEIS #27: natural numbers
+OEIS #30: Leading digit of $n$
+OEIS #32: $n$-th Lucas number
+OEIS #42646: Numerators of continued fraction convergents to $\\sqrt{853}$
+OEIS #60: Number of signed trees with $n$ nodes.
+OEIS #16804: $ a_n = (4n)^4 $
+OEIS #74606: $a_n = 3^n + 5^n $
+OEIS #40333: Continued fraction expansion for $\\sqrt{352}$
+OEIS #318910: Nearest integer to ${n\\choose \\frac{n}{2}}$
+OEIS #106548: $a_n=(n+1)^2$ if $(n+1)^2$ is a sum of two primes and a difference of two primes; $a_n=0$ otherwise
+OEIS #178934: $a_n = \\lfloor \\frac{3 4^n+ 2 3^n}{5} \\rfloor $
+OEIS #72708: Values of $n$ such that the $n$-th Fibonacci number $F(n)$ has $6$ as its last digit
+OEIS #34: The sequence $[1,2]$ repeating
+OEIS #42079: Denominators of continued fraction convergents to $\\sqrt{563}$

@@ -156,9 +156,35 @@ First {len(self)} terms: {self._sequence} { f'{NL}{self._description}' if self._
 			raise ValueError(f'argument must be in the range [{0},{len(self)}).')
 		return self._sequence[n]
 
+	def contig_subsubsequence_start_indices(self, subseq):
+		subseq = list(subseq)
+		for i,seq in enumerate(self.sliding_window(len(subseq))):
+			if subseq==seq:
+				yield i
+		
 
 
+	def has_subsequence(self, subseq, contig=True):
+		subseq = list(subseq)
+		if contig:
+			for _ in self.contig_subsubsequence_start_indices(subseq):
+				return True
+			return False
+		start = 0
+		for x in subseq:
+			try:
+				start = self._sequence.index(x, start)
+			except:
+				return False
+			start += 1
+		return True
 	
+
+	def startswith(self, subseq):
+		subseq = list(subseq)
+		for i in self.contig_subsubsequence_start_indices():
+			return i==0
+			
 		
 
 
